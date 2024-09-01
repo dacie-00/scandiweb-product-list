@@ -7,7 +7,7 @@ class ProductController
 {
     public function index(): array
     {
-        return ['products' => 'product list'];
+        return ['product list'];
     }
 
     public function show(string $id): array

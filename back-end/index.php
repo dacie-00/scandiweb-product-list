@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+use App\Database;
 use Symfony\Component\HttpFoundation\Response;
 
 require_once "vendor/autoload.php";
@@ -10,9 +11,18 @@ header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
 header('Content-Type: application/json');
 
-//$data = ['message' => 'Helloaac World!'];
-//echo json_encode($data);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD']);
 
+$host = $_ENV['DB_HOST'];
+$db   = $_ENV['DB_NAME'];
+$user = $_ENV['DB_USERNAME'];
+$pass = $_ENV['DB_PASSWORD'];
+
+$db = new Database($host, $db, $user, $pass);
+
+var_dump($db);die;
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $routes = include __DIR__ . "/routes.php";
