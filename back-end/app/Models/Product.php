@@ -88,9 +88,7 @@ abstract class Product
             ');
         $products = [];
         foreach ($productsData as $productData) {
-            $products[] = json_encode(
-                $productData['type']::fromDb($productData)
-            );
+            $products[] = $productData['type']::fromDb($productData);
         }
         return $products;
     }
