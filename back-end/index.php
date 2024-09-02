@@ -2,6 +2,9 @@
 declare(strict_types=1);
 
 use App\Database;
+use App\Models\Book;
+use App\Models\Product;
+use App\ProductDatabase;
 use Symfony\Component\HttpFoundation\Response;
 
 require_once "vendor/autoload.php";
@@ -15,14 +18,11 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD']);
 
-$host = $_ENV['DB_HOST'];
-$db   = $_ENV['DB_NAME'];
-$user = $_ENV['DB_USERNAME'];
-$pass = $_ENV['DB_PASSWORD'];
-
-$db = new Database($host, $db, $user, $pass);
-
-var_dump($db);die;
+//$book = (new Book("foobar", "foobar", 51, 15, 'foo'));
+//$book->save();
+//Book::get('foo')->delete();
+//var_dump(Book::get('foo'));die;
+//var_dump(Product::getAll());die;
 
 $dispatcher = FastRoute\simpleDispatcher(function (FastRoute\RouteCollector $r) {
     $routes = include __DIR__ . "/routes.php";
