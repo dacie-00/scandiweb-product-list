@@ -18,7 +18,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 $dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD']);
 
-//$book = (new Book("foobar", "foobar", 51, 15, 'foo'));
+//$book = (new Book("foobair", "foobar", 51, 15, 'fooi'));
 //$book->save();
 //Book::get('foo')->delete();
 //var_dump(Book::get('foo'));die;
