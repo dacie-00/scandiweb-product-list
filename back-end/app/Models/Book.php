@@ -38,26 +38,25 @@ class Book extends Product implements \JsonSerializable
         $db->query(
             'INSERT INTO products (id, sku, name, price, type) VALUES (?, ?, ?, ?, ?)',
             [
+                $this->getId(),
                 $this->getSku(),
                 $this->getName(),
                 $this->getPrice(),
                 __CLASS__,
-                $this->getId()
             ]
         );
         $db->query(
             'INSERT INTO product_attributes (product_id, attribute, value) VALUES (?, "weight", ?)',
             [
+                $this->getId(),
                 $this->getWeight(),
-                $this->getId()
             ]
         );
     }
 
     public function save(): void
     {
-
-        $existingProduct = $db->query('SELECT id FROM products WHERE id = ?', [$this->getId()]);
+        $existingProduct = Database::getInstance()->query('SELECT id FROM products WHERE id = ?', [$this->getId()]);
 
         if ($existingProduct) {
             $db = Database::getInstance();
