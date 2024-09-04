@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use App\Logger;
+use App\Models\Book;
 use App\Models\Product;
 
 class ProductController
@@ -20,5 +21,18 @@ class ProductController
         foreach($data['products'] as $product) {
             Product::delete($product);
         }
+    }
+
+    public function store(): void
+    {
+        $productMap = [
+            'book' => Book::class
+        ];
+
+        $data = json_decode(file_get_contents('php://input'), true);
+        Logger::getInstance()->info(json_encode($data));
+
+        $productMap[$data['product']['type']]::fromJson($data['product'])
+            ->save();
     }
 }

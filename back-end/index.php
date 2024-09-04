@@ -57,7 +57,6 @@ switch ($routeInfo[0]) {
             ->send();
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-        $log->info(json_encode($routeInfo));
         $allowedMethods = $routeInfo[1];
         (new Response())
             ->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED)
@@ -68,6 +67,7 @@ switch ($routeInfo[0]) {
         $vars = $routeInfo[2];
 
         [$class, $method] = $handle;
+        http_response_code(200);
         echo json_encode((new $class())->$method(...array_values($vars)));
         break;
 }

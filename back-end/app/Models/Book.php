@@ -136,6 +136,16 @@ class Book extends Product implements \JsonSerializable
         );
     }
 
+    public static function fromJson(array $data): Book
+    {
+        return new Book(
+            $data['sku'],
+            $data['name'],
+            (int)$data['price'],
+            (float)$data['weight'],
+        );
+    }
+
 
     public function jsonSerialize()
     {

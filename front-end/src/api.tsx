@@ -1,5 +1,4 @@
 import axios from "axios";
-import {data} from "autoprefixer";
 import { Product } from "./models/product";
 
 export async function fetchProducts() {
@@ -15,4 +14,11 @@ export async function deleteProducts(products: Product[]) {
         'http://localhost:8000/products',
         {data: {products: productIds}}
         );
+}
+
+export async function addProduct(product: Product) {
+    return await axios.post(
+        'http://localhost:8000/products',
+        {product: product}
+    )
 }
