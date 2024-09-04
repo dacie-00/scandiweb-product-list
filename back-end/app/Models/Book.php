@@ -154,6 +154,7 @@ class Book extends Product implements \JsonSerializable
             'sku' => $this->getSku(),
             'name' => $this->getName(),
             'price' => $this->getPrice(),
+            'type' => 'book',
             'weight' => $this->getWeight(),
         ];
     }

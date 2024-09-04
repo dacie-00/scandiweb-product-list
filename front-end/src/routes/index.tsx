@@ -23,15 +23,11 @@ function Index() {
         }
     })
 
-    if (isPending) return 'Loading...'
-
-    if (error) return 'An error has occurred: ' + error.message
-
-    return (
+    return data ? (
         <>
             <div className="mx-auto max-w-4xl">
                 <ProductList products={data} onDelete={deleteMutation.mutate}/>
             </div>
         </>
-    )
+    ) : '';
 }

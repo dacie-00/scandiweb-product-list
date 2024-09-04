@@ -2,6 +2,7 @@ import React from "react";
 import {Product} from "@/models/product";
 import {ProductCard} from "@/components/product-card";
 import {Button} from "@/components/ui/button";
+import {Link} from "@tanstack/react-router";
 
 type ProductListProps = {
     products: Product[]
@@ -18,7 +19,9 @@ export function ProductList({products, onDelete}: ProductListProps) {
             <div className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl font-bold">Product List</h1>
                 <div className="space-x-4">
-                    <Button>ADD</Button>
+                    <Link to="/addproduct">
+                        <Button>ADD</Button>
+                    </Link>
                     <Button id="delete-product-btn" onClick={handleDelete}>MASS DELETE</Button>
                 </div>
             </div>

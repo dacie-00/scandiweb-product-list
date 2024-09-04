@@ -23,22 +23,25 @@ const productTypes = [
 const specialAttributes = {
     book: () =>
         <>
-            <Label htmlFor="weight">Weight</Label>
+            <Label htmlFor="weight">Weight (KG)</Label>
             <Input inputMode="text" placeholder="Weight" name="weight" id="weight"/>
+            <p>Please provide the weight in KG</p>
         </>,
     dvd: () =>
         <>
-            <Label htmlFor="mb">MB</Label>
+            <Label htmlFor="mb">Size (MB)</Label>
             <Input inputMode="decimal" placeholder="MB" name="mb" id="mb"/>
+            <p>Please provide the size in MB</p>
         </>,
     furniture: () =>
         <>
-            <Label htmlFor="height">Height</Label>
+            <Label htmlFor="height">Height (CM)</Label>
             <Input inputMode="decimal" placeholder="Height" name="height" id="height"/>
-            <Label htmlFor="width">Width</Label>
+            <Label htmlFor="width">Width (CM)</Label>
             <Input inputMode="decimal" placeholder="Width" name="width" id="width"/>
-            <Label htmlFor="length">Length</Label>
+            <Label htmlFor="length">Length (CM)</Label>
             <Input inputMode="decimal" placeholder="Length" name="length" id="length"/>
+            <p>Please provide dimensions in HxWxL format</p>
         </>
 };
 
@@ -66,7 +69,7 @@ export function ProductForm({onSubmit}: ProductFormProps) {
                     </Link>
                 </div>
             </div>
-            <form id="product_form" onSubmit={handleSubmit}>
+            <form id="product_form" onSubmit={handleSubmit} className={"space-y-8"}>
                 <div className="w-100 flex items-center justify-between space-x-4">
                     <Label htmlFor="sku">SKU</Label>
                     <Input inputMode="text" placeholder="SKU" name="sku" id="sku"/>
@@ -76,12 +79,12 @@ export function ProductForm({onSubmit}: ProductFormProps) {
                     <Input inputMode="text" placeholder="Name" name="name" id="name"/>
                 </div>
                 <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="price">Price</Label>
+                    <Label htmlFor="price">Price ($)</Label>
                     <Input inputMode="decimal" placeholder="Price" name="price" id="price"/>
                 </div>
                 <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="type">Type</Label>
-                    <ProductCombobox onChange={setType} name="type" id="type"/>
+                    <Label htmlFor="productType">Type</Label>
+                    <ProductCombobox onChange={setType} name="type" id="productType"/>
                 </div>
                 {type && specialAttributes[type] && specialAttributes[type]()}
             </form>
