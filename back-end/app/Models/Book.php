@@ -31,61 +31,10 @@ class Book extends Product implements \JsonSerializable
         $this->weight = $weight;
     }
 
-    public function create(): void
-    {
-        $db = Database::getInstance();
-
-        $db->query(
-            'INSERT INTO products (id, sku, name, price, type) VALUES (?, ?, ?, ?, ?)',
-            [
-                $this->getId(),
-                $this->getSku(),
-                $this->getName(),
-                $this->getPrice(),
-                __CLASS__,
-            ]
-        );
-        $db->query(
-            'INSERT INTO product_attributes (product_id, attribute, value) VALUES (?, "weight", ?)',
-            [
-                $this->getId(),
-                $this->getWeight(),
-            ]
-        );
-    }
-
-    public function save(): void
-    {
-        $existingProduct = Database::getInstance()->query('SELECT id FROM products WHERE id = ?', [$this->getId()]);
-
-        if ($existingProduct) {
-            $db = Database::getInstance();
-            $db->query(
-                'UPDATE products SET sku = ?, name = ?, price = ?, type = ? WHERE id = ?',
-                [
-                    $this->getSku(),
-                    $this->getName(),
-                    $this->getPrice(),
-                    __CLASS__,
-                    $this->getId()
-                ]
-            );
-            $db->query(
-                'UPDATE product_attributes SET value = ? WHERE product_id = ? AND attribute = "weight"',
-                [
-                    $this->getWeight(),
-                    $this->getId()
-                ]
-            );
-        } else {
-            $this->create();
-        }
-    }
-
     public static function get(string $id): ?Book
     {
         $data = Database::getInstance()->query(
-    'SELECT 
+            'SELECT 
                 p.sku, 
                 p.name, 
                 p.price, 
@@ -117,13 +66,45 @@ class Book extends Product implements \JsonSerializable
         );
     }
 
-//    public function delete(): void
-//    {
-//        Database::getInstance()->query(
-//            'DELETE FROM products WHERE id = ? AND type = ?',
-//            [$this->getId(), __CLASS__]
-//        );
-//    }
+    public function create(): void
+    {
+        $db = Database::getInstance();
+
+        parent::create();
+
+        $db->query(
+            'INSERT INTO product_attributes (product_id, attribute, value) VALUES (?, "weight", ?)',
+            [
+                $this->getId(),
+                $this->getWeight(),
+            ]
+        );
+    }
+
+    public function update(): void
+    {
+        $db = Database::getInstance();
+
+        parent::create();
+
+        $db->query(
+            'UPDATE product_attributes SET value = ? WHERE product_id = ? AND attribute = "weight"',
+            [
+                $this->getWeight(),
+                $this->getId()
+            ]
+        );
+    }
+
+    public function save(): void
+    {
+        $existingProduct = self::exists($this->getId());
+        if ($existingProduct) {
+            $this->update();
+        } else {
+            $this->create();
+        }
+    }
 
     public static function fromDb(array $data): Book
     {
@@ -145,7 +126,6 @@ class Book extends Product implements \JsonSerializable
             (float)$data['weight'],
         );
     }
-
 
     public function jsonSerialize()
     {

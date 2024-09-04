@@ -93,6 +93,42 @@ abstract class Product
         return $products;
     }
 
+    public function create(): void
+    {
+        $db = Database::getInstance();
+
+        $db->query(
+            'INSERT INTO products (id, sku, name, price, type) VALUES (?, ?, ?, ?, ?)',
+            [
+                $this->getId(),
+                $this->getSku(),
+                $this->getName(),
+                $this->getPrice(),
+                static::class,
+            ]
+        );
+    }
+
+    public static function exists(string $id)
+    {
+        return Database::getInstance()->query('SELECT id FROM products WHERE id = ?', [$id]);
+    }
+
+    public function update(): void
+    {
+        $db = Database::getInstance();
+        $db->query(
+            'UPDATE products SET sku = ?, name = ?, price = ?, type = ? WHERE id = ?',
+            [
+                $this->getSku(),
+                $this->getName(),
+                $this->getPrice(),
+                static::class,
+                $this->getId()
+            ]
+        );
+    }
+
     public static function delete(string $id): void
     {
         Database::getInstance()->query(
@@ -100,4 +136,5 @@ abstract class Product
             [$id]
         );
     }
+
 }

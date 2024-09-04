@@ -30,7 +30,6 @@ class ProductController
         ];
 
         $data = json_decode(file_get_contents('php://input'), true);
-        Logger::getInstance()->info(json_encode($data));
 
         $productMap[$data['product']['type']]::fromJson($data['product'])
             ->save();
