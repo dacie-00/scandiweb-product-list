@@ -29,8 +29,8 @@ const specialAttributes = {
         </>,
     dvd: () =>
         <>
-            <Label htmlFor="mb">Size (MB)</Label>
-            <Input inputMode="decimal" placeholder="MB" name="mb" id="mb"/>
+            <Label htmlFor="size">Size (MB)</Label>
+            <Input inputMode="decimal" placeholder="Size" name="size" id="size"/>
             <p>Please provide the size in MB</p>
         </>,
     furniture: () =>
