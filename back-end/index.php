@@ -5,6 +5,9 @@ use App\Database;
 use App\Models\Book;
 use App\Models\Product;
 use App\ProductDatabase;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Response;
 
 require_once "vendor/autoload.php";
@@ -12,7 +15,13 @@ require_once "vendor/autoload.php";
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: *");
 header("Access-Control-Allow-Methods: *");
+header("Access-Control-Request-Methods: *");
 header('Content-Type: application/json');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -39,6 +48,7 @@ if (false !== $pos = strpos($uri, '?')) {
 }
 $uri = rawurldecode($uri);
 
+
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
@@ -47,6 +57,7 @@ switch ($routeInfo[0]) {
             ->send();
         break;
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+        $log->info(json_encode($routeInfo));
         $allowedMethods = $routeInfo[1];
         (new Response())
             ->setStatusCode(Response::HTTP_METHOD_NOT_ALLOWED)

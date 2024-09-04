@@ -117,13 +117,13 @@ class Book extends Product implements \JsonSerializable
         );
     }
 
-    public function delete(): void
-    {
-        Database::getInstance()->query(
-            'DELETE FROM products WHERE id = ? AND type = ?',
-            [$this->getId(), __CLASS__]
-        );
-    }
+//    public function delete(): void
+//    {
+//        Database::getInstance()->query(
+//            'DELETE FROM products WHERE id = ? AND type = ?',
+//            [$this->getId(), __CLASS__]
+//        );
+//    }
 
     public static function fromDb(array $data): Book
     {

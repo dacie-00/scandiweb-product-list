@@ -92,4 +92,12 @@ abstract class Product
         }
         return $products;
     }
+
+    public static function delete(string $id): void
+    {
+        Database::getInstance()->query(
+            'DELETE FROM products WHERE id = ?',
+            [$id]
+        );
+    }
 }
