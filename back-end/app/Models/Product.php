@@ -67,7 +67,7 @@ abstract class Product
         $this->price = $price;
     }
 
-    protected static function getAll(): array
+    public static function getAll(): array
     {
         $productsData = Database::getInstance()
             ->query('
@@ -155,7 +155,7 @@ abstract class Product
         );
     }
 
-    protected static function delete(string $id): void
+    public static function delete(string $id): void
     {
         Database::getInstance()->query(
             'DELETE FROM products WHERE id = ?',
