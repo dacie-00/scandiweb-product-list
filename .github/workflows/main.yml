@@ -28,8 +28,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Enter frontend directory
-        run: cd front-end
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Node
@@ -38,8 +36,10 @@ jobs:
           node-version: 20
           cache: 'npm'
       - name: Install dependencies
+        working-directory: ./front-end
         run: npm ci
       - name: Build
+        working-directory: ./front-end
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
