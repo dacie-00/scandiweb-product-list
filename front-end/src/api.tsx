@@ -1,9 +1,11 @@
 import axios from "axios";
 import { Product } from "./models/product";
 
+const $baseUrl = "https://scandiweb-products-api-1085462946921.europe-north1.run.app/"
+
 export async function fetchProducts() {
     return await axios.get(
-        'http://localhost:8000/products'
+        $baseUrl + 'products'
     )
         .then((response) => response.data);
 }
@@ -11,14 +13,14 @@ export async function fetchProducts() {
 export async function deleteProducts(products: Product[]) {
     const productIds = products.map(product => product.id);
     return await axios.delete(
-        'http://localhost:8000/products',
+        $baseUrl + 'products',
         {data: {products: productIds}}
         );
 }
 
 export async function addProduct(product: Product) {
     return await axios.post(
-        'http://localhost:8000/products',
+        $baseUrl + 'products',
         {product: product}
     )
 }
