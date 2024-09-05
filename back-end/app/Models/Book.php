@@ -70,8 +70,8 @@ class Book extends Product implements \JsonSerializable
     {
         $db = Database::getInstance();
 
+        $db->getConnection()->beginTransaction();
         parent::create();
-
         $db->query(
             'INSERT INTO product_attributes (product_id, attribute, value) VALUES (?, "weight", ?)',
             [
@@ -79,6 +79,7 @@ class Book extends Product implements \JsonSerializable
                 $this->getWeight(),
             ]
         );
+        $db->getConnection()->commit();
     }
 
     public static function fromDb(array $data): Book

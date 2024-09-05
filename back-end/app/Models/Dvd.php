@@ -70,8 +70,8 @@ class Dvd extends Product implements \JsonSerializable
     {
         $db = Database::getInstance();
 
+        $db->getConnection()->beginTransaction();
         parent::create();
-
         $db->query(
             'INSERT INTO product_attributes (product_id, attribute, value) VALUES (?, "size", ?)',
             [
@@ -79,6 +79,7 @@ class Dvd extends Product implements \JsonSerializable
                 $this->getSize(),
             ]
         );
+        $db->getConnection()->commit();
     }
 
     public static function fromDb(array $data): Dvd

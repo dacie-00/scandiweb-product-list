@@ -100,8 +100,8 @@ class Furniture extends Product implements JsonSerializable
     {
         $db = Database::getInstance();
 
+        $db->getConnection()->beginTransaction();
         parent::create();
-
         $db->query(
             'INSERT INTO product_attributes (product_id, attribute, value) VALUES 
                     (?, "width", ?), 
@@ -113,6 +113,7 @@ class Furniture extends Product implements JsonSerializable
                 $this->getId(), $this->getLength(),
             ]
         );
+        $db->getConnection()->commit();
     }
 
     public static function fromDb(array $data): Furniture
