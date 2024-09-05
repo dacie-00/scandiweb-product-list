@@ -16,7 +16,7 @@ export function ProductList({products, onDelete}: ProductListProps) {
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-4">
+            <header className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl font-bold">Product List</h1>
                 <div className="space-x-4">
                     <Link to="/addproduct">
@@ -24,13 +24,13 @@ export function ProductList({products, onDelete}: ProductListProps) {
                     </Link>
                     <Button id="delete-product-btn" onClick={handleDelete}>MASS DELETE</Button>
                 </div>
-            </div>
+            </header>
             <hr className="h-px my-8 bg-slate-300 border-0 dark:bg-gray-700"></hr>
-            <div className="grid grid-cols-4 gap-4">
+            <main className="grid grid-cols-4 gap-4">
                 {products.map((product) => (
                     <ProductCard key={product.id} product={product}/>
                 ))}
-            </div>
+            </main>
         </div>
     );
 }

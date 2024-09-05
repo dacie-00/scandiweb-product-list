@@ -72,7 +72,7 @@ export function ProductForm({onSubmit}: ProductFormProps) {
 
     return (
         <>
-            <div className="flex items-center justify-between mb-4">
+            <header className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl font-bold">Product Add</h1>
                 <div className="space-x-4">
                     <Button form="product_form" type="submit">Save</Button>
@@ -80,27 +80,29 @@ export function ProductForm({onSubmit}: ProductFormProps) {
                         <Button>Cancel</Button>
                     </Link>
                 </div>
-            </div>
+            </header>
             <hr className="h-px my-8 bg-slate-300 border-0 dark:bg-gray-700"></hr>
-            <form id="product_form" onSubmit={handleSubmit} className={"space-y-6 max-w-lg pt-4"}>
-                <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="sku" className="w-16">SKU</Label>
-                    <Input inputMode="text" placeholder="SKU" name="sku" id="sku"/>
-                </div>
-                <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="name" className="w-16">name</Label>
-                    <Input inputMode="text" placeholder="Name" name="name" id="name"/>
-                </div>
-                <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="price" className="w-16">Price ($)</Label>
-                    <Input inputMode="decimal" placeholder="Price" name="price" id="price"/>
-                </div>
-                <div className="w-100 flex items-center justify-between space-x-4">
-                    <Label htmlFor="productType">Type</Label>
-                    <ProductCombobox onChange={setType} name="type" id="productType"/>
-                </div>
-                {type && specialAttributes[type] && specialAttributes[type]()}
-            </form>
+            <main>
+                <form id="product_form" onSubmit={handleSubmit} className={"space-y-6 max-w-lg pt-4"}>
+                    <div className="w-100 flex items-center justify-between space-x-4">
+                        <Label htmlFor="sku" className="w-16">SKU</Label>
+                        <Input inputMode="text" placeholder="SKU" name="sku" id="sku"/>
+                    </div>
+                    <div className="w-100 flex items-center justify-between space-x-4">
+                        <Label htmlFor="name" className="w-16">name</Label>
+                        <Input inputMode="text" placeholder="Name" name="name" id="name"/>
+                    </div>
+                    <div className="w-100 flex items-center justify-between space-x-4">
+                        <Label htmlFor="price" className="w-16">Price ($)</Label>
+                        <Input inputMode="decimal" placeholder="Price" name="price" id="price"/>
+                    </div>
+                    <div className="w-100 flex items-center justify-between space-x-4">
+                        <Label htmlFor="productType">Type</Label>
+                        <ProductCombobox onChange={setType} name="type" id="productType"/>
+                    </div>
+                    {type && specialAttributes[type] && specialAttributes[type]()}
+                </form>
+            </main>
         </>
     );
 }
