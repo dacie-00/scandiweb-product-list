@@ -1,0 +1,13 @@
+runtime: php83
+
+handlers:
+  # Serve your app through a front controller at index.php or public/index.php.
+  - url: .*
+    script: auto
+
+
+env_variables:
+  INSTANCE_UNIX_SOCKET: /cloudsql/<PROJECT-ID>:<INSTANCE-REGION>:<INSTANCE-NAME>
+  DB_USER: root
+  DB_PASS:
+  DB_NAME: root
