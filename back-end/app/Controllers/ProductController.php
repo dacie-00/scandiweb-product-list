@@ -34,6 +34,6 @@ class ProductController
         $data = json_decode(file_get_contents('php://input'), true);
 
         $productMap[$data['product']['type']]::fromJson($data['product'])
-            ->save();
+            ->create();
     }
 }

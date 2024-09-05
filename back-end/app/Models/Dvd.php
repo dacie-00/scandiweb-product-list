@@ -81,31 +81,6 @@ class Dvd extends Product implements \JsonSerializable
         );
     }
 
-    public function update(): void
-    {
-        $db = Database::getInstance();
-
-        parent::create();
-
-        $db->query(
-            'UPDATE product_attributes SET value = ? WHERE product_id = ? AND attribute = "size"',
-            [
-                $this->getSize(),
-                $this->getId()
-            ]
-        );
-    }
-
-    public function save(): void
-    {
-        $existingProduct = self::exists($this->getId());
-        if ($existingProduct) {
-            $this->update();
-        } else {
-            $this->create();
-        }
-    }
-
     public static function fromDb(array $data): Dvd
     {
         return new Dvd(
