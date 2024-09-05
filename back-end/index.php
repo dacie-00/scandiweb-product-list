@@ -23,9 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
-$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD']);
+//$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+
+$exists = Database::getInstance()->query(
+    "SELECT 1 FROM information_schema.tables WHERE table_schema = ? AND table_name = ? LIMIT 1",
+    [getenv('DB_NAME'), 'products']
+);
+if (empty($exists)) {
+    Database::getInstance()->migrate();
+}
+//$dotenv->load();
+//$dotenv->required(['DB_HOST', 'DB_NAME', 'DB_USERNAME', 'DB_PASSWORD']);
 
 //$book = (new Book("foobair", "foobar", 51, 15, 'fooi'));
 //$book->save();

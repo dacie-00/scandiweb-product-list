@@ -8,24 +8,24 @@ use PDO;
 
 class Database
 {
-    private string $host;
-    private string $name;
-    private string $username;
-    private string $password;
+//    private string $host;
+//    private string $name;
+//    private string $username;
+//    private string $password;
     private static Database $instance;
     private PDO $connection;
 
     public function __construct(
-        string $host,
-        string $name,
-        string $username,
-        string $password,
+//        string $host,
+//        string $name,
+//        string $username,
+//        string $password,
     ) {
 
-        $this->host = $host;
-        $this->name = $name;
-        $this->username = $username;
-        $this->password = $password;
+//        $this->host = $host;
+//        $this->name = $name;
+//        $this->username = $username;
+//        $this->password = $password;
 
         $username = getenv('DB_USERNAME'); // e.g. 'your_db_user'
         $password = getenv('DB_PASSWORD'); // e.g. 'your_db_password'
@@ -73,10 +73,10 @@ class Database
     {
         if (!isset(self::$instance)) {
             self::$instance = new Database(
-                $_ENV['DB_HOST'],
-                $_ENV['DB_NAME'],
-                $_ENV['DB_USERNAME'],
-                $_ENV['DB_PASSWORD'],
+//                $_ENV['DB_HOST'],
+//                $_ENV['DB_NAME'],
+//                $_ENV['DB_USERNAME'],
+//                $_ENV['DB_PASSWORD'],
             );
         }
         return self::$instance;
