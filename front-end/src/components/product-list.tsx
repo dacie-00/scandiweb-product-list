@@ -25,9 +25,10 @@ export function ProductList({products, onDelete}: ProductListProps) {
                     <Button id="delete-product-btn" onClick={handleDelete}>MASS DELETE</Button>
                 </div>
             </div>
+            <hr className="h-px my-8 bg-slate-300 border-0 dark:bg-gray-700"></hr>
             <div className="grid grid-cols-4 gap-4">
                 {products.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={product}/>
                 ))}
             </div>
         </div>

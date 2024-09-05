@@ -53,13 +53,13 @@ export function ProductCombobox({ onChange, name, id }) {
                     >
                         {value
                             ? items.find((item) => item.value === value)?.label
-                            : "Select item..."}
+                            : "Select type..."}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <Command>
-                        <CommandInput placeholder="Search item..." />
+                        <CommandInput placeholder="Search type..." />
                         <CommandList>
                             <CommandEmpty>No item found.</CommandEmpty>
                             <CommandGroup>
