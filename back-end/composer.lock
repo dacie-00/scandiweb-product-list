@@ -1069,7 +1069,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-http": "*",
         "ext-pdo": "*"
     },
     "platform-dev": [],
