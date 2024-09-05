@@ -9,12 +9,12 @@ use Ramsey\Uuid\Uuid;
 
 abstract class Product
 {
-    private string $id;
-    private string $sku;
-    private string $name;
-    private int $price;
+    protected string $id;
+    protected string $sku;
+    protected string $name;
+    protected int $price;
 
-    public function __construct(
+    protected function __construct(
         string $sku,
         string $name,
         int $price,
@@ -27,47 +27,47 @@ abstract class Product
         $this->price = $price;
     }
 
-    public function getId(): string
+    protected function getId(): string
     {
         return $this->id;
     }
 
-    public function setId(string $id): void
+    protected function setId(string $id): void
     {
         $this->id = $id;
     }
 
-    public function getSku(): string
+    protected function getSku(): string
     {
         return $this->sku;
     }
 
-    public function setSku(string $sku): void
+    protected function setSku(string $sku): void
     {
         $this->sku = $sku;
     }
 
-    public function getName(): string
+    protected function getName(): string
     {
         return $this->name;
     }
 
-    public function setName(string $name): void
+    protected function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    public function getPrice(): int
+    protected function getPrice(): int
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): void
+    protected function setPrice(int $price): void
     {
         $this->price = $price;
     }
 
-    public static function getAll(): array
+    protected static function getAll(): array
     {
         $productsData = Database::getInstance()
             ->query('
@@ -119,7 +119,7 @@ abstract class Product
         return $products;
     }
 
-    public function create(): void
+    protected function create(): void
     {
         $db = Database::getInstance();
 
@@ -135,12 +135,12 @@ abstract class Product
         );
     }
 
-    public static function exists(string $id)
+    protected static function exists(string $id)
     {
         return Database::getInstance()->query('SELECT id FROM products WHERE id = ?', [$id]);
     }
 
-    public function update(): void
+    protected function update(): void
     {
         $db = Database::getInstance();
         $db->query(
@@ -155,12 +155,11 @@ abstract class Product
         );
     }
 
-    public static function delete(string $id): void
+    protected static function delete(string $id): void
     {
         Database::getInstance()->query(
             'DELETE FROM products WHERE id = ?',
             [$id]
         );
     }
-
 }

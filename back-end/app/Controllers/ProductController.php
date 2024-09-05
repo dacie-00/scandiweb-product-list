@@ -35,7 +35,10 @@ class ProductController
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $productMap[$data['product']['type']]::fromJson($data['product'])
-            ->create();
+        if (isset($data['product']['type']) && class_exists($productMap[$data['product']['type']])) {
+            $product = $productMap[$data['product']['type']];
+//            $product::validate();
+            $product::fromJson($data['product'])->create();
+        }
     }
 }
