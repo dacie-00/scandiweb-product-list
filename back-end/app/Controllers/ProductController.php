@@ -6,6 +6,7 @@ namespace App\Controllers;
 use App\Logger;
 use App\Models\Book;
 use App\Models\Dvd;
+use App\Models\Furniture;
 use App\Models\Product;
 
 class ProductController
@@ -29,6 +30,7 @@ class ProductController
         $productMap = [
             'book' => Book::class,
             'dvd' => Dvd::class,
+            'furniture' => Furniture::class,
         ];
 
         $data = json_decode(file_get_contents('php://input'), true);

@@ -13,13 +13,13 @@ const specialAttributes = {
         </>,
     furniture: (product) =>
         <>
-            <p>Width: {product.width} CM</p>
             <p>Height: {product.height} CM</p>
+            <p>Width: {product.width} CM</p>
             <p>Length: {product.length} CM</p>
         </>
 };
 
-export function ProductCard({product}: {product: Product}) {
+export function ProductCard({product}: { product: Product}) {
     return (
         <div className="border-2 border-black p-2 aspect-square">
             <Checkbox className="delete-checkbox" onCheckedChange={(state) => product.toDelete = Boolean(state)}></Checkbox>

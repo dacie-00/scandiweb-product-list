@@ -86,10 +86,36 @@ abstract class Product
                 ON 
                     p.id = pa.product_id;
             ');
+
         $products = [];
-        foreach ($productsData as $productData) {
-            $products[] = $productData['type']::fromDb($productData);
+        $groupedProducts = [];
+
+        foreach ($productsData as $row) {
+            $productId = $row['id'];
+
+            if (!isset($groupedProducts[$productId])) {
+                $groupedProducts[$productId] = [
+                    'id' => $row['id'],
+                    'sku' => $row['sku'],
+                    'name' => $row['name'],
+                    'price' => $row['price'],
+                    'type' => $row['type'],
+                    'attributes' => [],
+                ];
+            }
+
+            if (!empty($row['attribute'])) {
+                $groupedProducts[$productId]['attributes'][$row['attribute']] = $row['value'];
+            }
         }
+
+        foreach ($groupedProducts as $productData) {
+            $productClass = $productData['type'];
+            if (class_exists($productClass)) {
+                $products[] = $productClass::fromDb($productData);
+            }
+        }
+
         return $products;
     }
 

@@ -87,7 +87,7 @@ class Book extends Product implements \JsonSerializable
             $data['sku'],
             $data['name'],
             (int)$data['price'],
-            (float)$data['value'],
+            (float)$data['attributes']['weight'],
             $data['id'],
         );
     }
