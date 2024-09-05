@@ -21,13 +21,25 @@ class Database
         string $username,
         string $password,
     ) {
+
         $this->host = $host;
         $this->name = $name;
         $this->username = $username;
         $this->password = $password;
 
-        $charset = 'utf8mb4';
-        $dsn = "mysql:host=$host;dbname=$name;charset=$charset";
+        $username = getenv('DB_USERNAME'); // e.g. 'your_db_user'
+        $password = getenv('DB_PASSWORD'); // e.g. 'your_db_password'
+        $dbName = getenv('DB_NAME'); // e.g. 'your_db_name'
+        $instanceUnixSocket = getenv('INSTANCE_UNIX_SOCKET'); // e.g. '/cloudsql/project:region:instance'
+
+        // Connect using UNIX sockets
+        $dsn = sprintf(
+            'mysql:dbname=%s;unix_socket=%s',
+            $dbName,
+            $instanceUnixSocket
+        );
+//        $charset = 'utf8mb4';
+//        $dsn = "mysql:host=$host;dbname=$name;charset=$charset";
         $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -36,8 +48,10 @@ class Database
 
         $this->connection = new PDO(
             $dsn,
-            $this->username,
-            $this->password,
+            $username,
+            $password,
+//            $this->username,
+//            $this->password,
             $options
         );
     }
